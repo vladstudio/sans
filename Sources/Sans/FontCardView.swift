@@ -53,13 +53,6 @@ struct FontCardView: View {
                     Button("Reveal in Finder") {
                         NSWorkspace.shared.selectFile(url.path, inFileViewerRootedAtPath: url.deletingLastPathComponent().path)
                     }
-                    Button("Reveal in Font Book") {
-                        NSWorkspace.shared.open(
-                            [url],
-                            withApplicationAt: URL(fileURLWithPath: "/System/Applications/Font Book.app"),
-                            configuration: NSWorkspace.OpenConfiguration()
-                        )
-                    }
                 }
             }
         }
