@@ -2,12 +2,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "Font",
+    name: "Sans",
     platforms: [.macOS(.v13)],
     targets: [
         .executableTarget(
-            name: "Font",
-            path: "Sources/Font"
+            name: "Sans",
+            path: "Sources/Sans"
         )
     ]
 )

@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct FontApp: App {
+struct SansApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
