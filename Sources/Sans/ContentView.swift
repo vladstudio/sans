@@ -82,18 +82,15 @@ struct ContentView: View {
     private func buildRows(from families: [FontFamily], columns: Int) -> [RowData] {
         stride(from: 0, to: families.count, by: columns).map { start in
             let end = min(start + columns, families.count)
-            return RowData(id: start, families: Array(families[start..<end]))
+            return RowData(id: families[start].id, families: Array(families[start..<end]))
         }
     }
 }
 
 private struct RowData: Identifiable {
-    let id: Int
+    let id: String
     let families: [FontFamily]
 }
-
-private let cardPadding: CGFloat = 36
-private let footerHeight: CGFloat = 28
 
 private struct CardRow: View {
     let families: [FontFamily]
@@ -108,7 +105,7 @@ private struct CardRow: View {
     @State private var maxTextHeight: CGFloat = 20
 
     private var rowHeight: CGFloat {
-        maxTextHeight + 2 * cardPadding + footerHeight
+        maxTextHeight + 2 * FontCardView.cardPadding + FontCardView.footerHeight
     }
 
     var body: some View {
@@ -137,7 +134,7 @@ private struct CardRow: View {
     }
 
     private func computeMaxTextHeight() {
-        let textWidth = max(10, cardWidth - 2 * cardPadding)
+        let textWidth = max(10, cardWidth - 2 * FontCardView.cardPadding)
         var result: CGFloat = 20
 
         let paragraphStyle = NSMutableParagraphStyle()

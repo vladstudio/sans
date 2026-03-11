@@ -20,22 +20,18 @@ final class FontManager: ObservableObject {
     private var cache: [String: ResolvedFont] = [:]
 
     func loadFonts() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            let mgr = NSFontManager.shared
-            let familyNames = mgr.availableFontFamilies.sorted {
-                $0.localizedCaseInsensitiveCompare($1) == .orderedAscending
-            }
-
-            let result = familyNames.map { name -> FontFamily in
-                let count = mgr.availableMembers(ofFontFamily: name)?.count ?? 0
-                return FontFamily(id: name, familyName: name, faceCount: count)
-            }
-
-            DispatchQueue.main.async {
-                self.cache.removeAll()
-                self.families = result
-            }
+        let mgr = NSFontManager.shared
+        let familyNames = mgr.availableFontFamilies.sorted {
+            $0.localizedCaseInsensitiveCompare($1) == .orderedAscending
         }
+
+        let result = familyNames.map { name -> FontFamily in
+            let count = mgr.availableMembers(ofFontFamily: name)?.count ?? 0
+            return FontFamily(id: name, familyName: name, faceCount: count)
+        }
+
+        cache.removeAll()
+        families = result
     }
 
     func resolve(family: String, weight: Int, size: CGFloat) -> ResolvedFont? {

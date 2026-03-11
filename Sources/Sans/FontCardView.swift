@@ -6,18 +6,19 @@ struct FontCardView: View {
     let sampleText: String
     let resolved: ResolvedFont?
     let textHeight: CGFloat
-    let cardPadding: CGFloat = 36
+    static let cardPadding: CGFloat = 36
+    static let footerHeight: CGFloat = 28
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             if let resolved = resolved {
                 FontTextView(text: sampleText, font: resolved.nsFont)
                     .frame(height: textHeight)
-                    .padding(cardPadding)
+                    .padding(Self.cardPadding)
             } else {
                 Text(sampleText)
                     .frame(height: textHeight, alignment: .topLeading)
-                    .padding(cardPadding)
+                    .padding(Self.cardPadding)
             }
 
             HStack {
