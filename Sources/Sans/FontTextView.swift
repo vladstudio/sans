@@ -31,6 +31,7 @@ class FontRenderView: NSView {
 
         let attrs: [NSAttributedString.Key: Any] = [
             .font: font,
+            .foregroundColor: NSColor.labelColor,
             .paragraphStyle: paragraphStyle,
         ]
 

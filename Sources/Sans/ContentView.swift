@@ -127,6 +127,7 @@ private struct CardRow: View {
             }
         }
         .onAppear { computeMaxTextHeight() }
+        .onChange(of: families) { _ in computeMaxTextHeight() }
         .onChange(of: sampleText) { _ in computeMaxTextHeight() }
         .onChange(of: fontSize) { _ in computeMaxTextHeight() }
         .onChange(of: weight) { _ in computeMaxTextHeight() }
