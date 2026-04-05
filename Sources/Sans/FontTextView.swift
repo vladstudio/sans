@@ -26,16 +26,17 @@ class FontRenderView: NSView {
     override var isFlipped: Bool { true }
 
     override func draw(_ dirtyRect: NSRect) {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = .byCharWrapping
-
-        let attrs: [NSAttributedString.Key: Any] = [
-            .font: font,
-            .foregroundColor: NSColor.labelColor,
-            .paragraphStyle: paragraphStyle,
-        ]
-
-        let attrString = NSAttributedString(string: text, attributes: attrs)
+        let attrString = NSAttributedString.charWrapped(text, font: font, color: .labelColor)
         attrString.draw(with: bounds, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
+    }
+}
+
+extension NSAttributedString {
+    static func charWrapped(_ text: String, font: NSFont, color: NSColor? = nil) -> NSAttributedString {
+        let style = NSMutableParagraphStyle()
+        style.lineBreakMode = .byCharWrapping
+        var attrs: [Key: Any] = [.font: font, .paragraphStyle: style]
+        if let color { attrs[.foregroundColor] = color }
+        return NSAttributedString(string: text, attributes: attrs)
     }
 }

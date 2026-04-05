@@ -2,9 +2,9 @@ import AppKit
 import CoreText
 
 struct FontFamily: Identifiable, Hashable {
-    let id: String
     let familyName: String
     let faceCount: Int
+    var id: String { familyName }
 }
 
 struct ResolvedFont {
@@ -28,7 +28,7 @@ final class FontManager: ObservableObject {
 
         let result = familyNames.map { name -> FontFamily in
             let count = mgr.availableMembers(ofFontFamily: name)?.count ?? 0
-            return FontFamily(id: name, familyName: name, faceCount: count)
+            return FontFamily(familyName: name, faceCount: count)
         }
 
         cache.removeAll()

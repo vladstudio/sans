@@ -135,16 +135,9 @@ private struct CardRow: View {
         let textWidth = max(10, cardWidth - 2 * FontCardView.cardPadding)
         var result: CGFloat = 20
 
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = .byCharWrapping
-
         for family in families {
             if let resolved = fontManager.resolve(family: family.familyName, weight: weight, size: fontSize) {
-                let attrs: [NSAttributedString.Key: Any] = [
-                    .font: resolved.nsFont,
-                    .paragraphStyle: paragraphStyle,
-                ]
-                let attrString = NSAttributedString(string: sampleText, attributes: attrs)
+                let attrString = NSAttributedString.charWrapped(sampleText, font: resolved.nsFont)
                 let rect = attrString.boundingRect(
                     with: NSSize(width: textWidth, height: CGFloat.greatestFiniteMagnitude),
                     options: [.usesLineFragmentOrigin, .usesFontLeading]

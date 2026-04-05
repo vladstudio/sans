@@ -14,10 +14,12 @@ struct FontCardView: View {
             if let resolved = resolved {
                 FontTextView(text: sampleText, font: resolved.nsFont)
                     .frame(height: textHeight)
+                    .clipped()
                     .padding(Self.cardPadding)
             } else {
                 Text(sampleText)
                     .frame(height: textHeight, alignment: .topLeading)
+                    .clipped()
                     .padding(Self.cardPadding)
             }
 
@@ -37,7 +39,7 @@ struct FontCardView: View {
             .padding(.bottom, 8)
         }
         .background(Color(nsColor: .controlBackgroundColor))
-        .cornerRadius(6)
+        .clipShape(RoundedRectangle(cornerRadius: 6))
         .contextMenu {
             Button("Copy Font Name") {
                 copyToClipboard(family.familyName)
