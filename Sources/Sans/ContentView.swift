@@ -1,5 +1,4 @@
 import SwiftUI
-import Combine
 import AppKit
 
 struct ContentView: View {
@@ -7,7 +6,6 @@ struct ContentView: View {
 
     @State private var sampleText = "The quick brown fox"
     @State private var searchText = ""
-    @State private var debouncedSearch = ""
     @State private var columns = 3
     @State private var fontSizeIndex = 4 // index into fontSizes → 36
     @State private var weightIndex = 3   // index into weights → 400
@@ -16,8 +14,8 @@ struct ContentView: View {
     private var weight: Int { TopBarView.weights[weightIndex] }
 
     private var filteredFamilies: [FontFamily] {
-        if debouncedSearch.isEmpty { return fontManager.families }
-        let query = debouncedSearch.lowercased()
+        if searchText.isEmpty { return fontManager.families }
+        let query = searchText.lowercased()
         return fontManager.families.filter {
             $0.familyName.lowercased().contains(query)
         }
@@ -71,12 +69,6 @@ struct ContentView: View {
         }
         .onChange(of: fontSizeIndex) { _ in fontManager.invalidateCache() }
         .onChange(of: weightIndex) { _ in fontManager.invalidateCache() }
-        .onReceive(
-            Just(searchText)
-                .debounce(for: .milliseconds(150), scheduler: RunLoop.main)
-        ) { value in
-            debouncedSearch = value
-        }
     }
 
     private func buildRows(from families: [FontFamily], columns: Int) -> [RowData] {
