@@ -1,7 +1,7 @@
 import AppKit
 import CoreText
 
-struct FontFamily: Identifiable, Equatable {
+struct FontFamily: Identifiable, Hashable {
     let id: String
     let familyName: String
     let faceCount: Int
@@ -14,6 +14,7 @@ struct ResolvedFont {
     let fileURL: URL?
 }
 
+@MainActor
 final class FontManager: ObservableObject {
     @Published var families: [FontFamily] = []
 

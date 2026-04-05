@@ -1,6 +1,11 @@
 import SwiftUI
 import AppKit
 
+enum FontConfig {
+    static let sizes: [CGFloat] = [10, 12, 16, 24, 36, 48, 72]
+    static let weights: [Int] = [100, 200, 300, 400, 500, 600, 700, 800, 900]
+}
+
 struct ContentView: View {
     @StateObject private var fontManager = FontManager()
 
@@ -10,8 +15,8 @@ struct ContentView: View {
     @State private var fontSizeIndex = 4 // index into fontSizes → 36
     @State private var weightIndex = 3   // index into weights → 400
 
-    private var fontSize: CGFloat { TopBarView.fontSizes[fontSizeIndex] }
-    private var weight: Int { TopBarView.weights[weightIndex] }
+    private var fontSize: CGFloat { FontConfig.sizes[fontSizeIndex] }
+    private var weight: Int { FontConfig.weights[weightIndex] }
 
     private var filteredFamilies: [FontFamily] {
         if searchText.isEmpty { return fontManager.families }
@@ -67,8 +72,8 @@ struct ContentView: View {
         .onAppear {
             fontManager.loadFonts()
         }
-        .onChange(of: fontSizeIndex) { _ in fontManager.invalidateCache() }
-        .onChange(of: weightIndex) { _ in fontManager.invalidateCache() }
+        .onChange(of: fontSizeIndex) { fontManager.invalidateCache() }
+        .onChange(of: weightIndex) { fontManager.invalidateCache() }
     }
 
     private func buildRows(from families: [FontFamily], columns: Int) -> [RowData] {
@@ -96,6 +101,10 @@ private struct CardRow: View {
 
     @State private var maxTextHeight: CGFloat = 20
 
+    private var heightInputs: [AnyHashable] {
+        [AnyHashable(families), AnyHashable(sampleText), AnyHashable(fontSize), AnyHashable(weight), AnyHashable(cardWidth)]
+    }
+
     private var rowHeight: CGFloat {
         maxTextHeight + 2 * FontCardView.cardPadding + FontCardView.footerHeight
     }
@@ -119,11 +128,7 @@ private struct CardRow: View {
             }
         }
         .onAppear { computeMaxTextHeight() }
-        .onChange(of: families) { _ in computeMaxTextHeight() }
-        .onChange(of: sampleText) { _ in computeMaxTextHeight() }
-        .onChange(of: fontSize) { _ in computeMaxTextHeight() }
-        .onChange(of: weight) { _ in computeMaxTextHeight() }
-        .onChange(of: cardWidth) { _ in computeMaxTextHeight() }
+        .onChange(of: heightInputs) { computeMaxTextHeight() }
     }
 
     private func computeMaxTextHeight() {

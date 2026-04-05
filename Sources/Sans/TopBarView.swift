@@ -8,9 +8,6 @@ struct TopBarView: View {
     @Binding var weightIndex: Int
     var onReload: () -> Void
 
-    static let fontSizes: [CGFloat] = [10, 12, 16, 24, 36, 48, 72]
-    static let weights: [Int] = [100, 200, 300, 400, 500, 600, 700, 800, 900]
-
     var body: some View {
         HStack(alignment: .bottom, spacing: 16) {
             labeledControl("Sample Text") {
@@ -36,25 +33,25 @@ struct TopBarView: View {
                 .frame(width: 120)
             }
 
-            labeledControl("Size: \(Int(Self.fontSizes[fontSizeIndex]))") {
+            labeledControl("Size: \(Int(FontConfig.sizes[fontSizeIndex]))") {
                 Slider(
                     value: Binding(
                         get: { Double(fontSizeIndex) },
                         set: { fontSizeIndex = Int($0.rounded()) }
                     ),
-                    in: 0...Double(Self.fontSizes.count - 1),
+                    in: 0...Double(FontConfig.sizes.count - 1),
                     step: 1
                 )
                 .frame(width: 100)
             }
 
-            labeledControl("Weight: \(Self.weights[weightIndex])") {
+            labeledControl("Weight: \(FontConfig.weights[weightIndex])") {
                 Slider(
                     value: Binding(
                         get: { Double(weightIndex) },
                         set: { weightIndex = Int($0.rounded()) }
                     ),
-                    in: 0...Double(Self.weights.count - 1),
+                    in: 0...Double(FontConfig.weights.count - 1),
                     step: 1
                 )
                 .frame(width: 100)
