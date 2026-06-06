@@ -1,8 +1,16 @@
 # Sans
 
+<img src="sans-1024.png" width="128" alt="Sans icon">
+
 A macOS app to preview sample text across all your installed fonts.
 
 ![Sans screenshot](shot.png)
+
+## Install
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/vladstudio/sans/main/install.sh)"
+```
 
 ## Features
 
