@@ -8,10 +8,6 @@ A macOS app to preview sample text across all your installed fonts.
 
 ## Install
 
-[Download Sans.zip](https://github.com/vladstudio/sans/releases/latest/download/Sans.zip), unzip, and move to Applications.
-
-Or via terminal:
-
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/vladstudio/sans/main/install.sh)"
 ```
