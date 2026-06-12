@@ -16,7 +16,6 @@ pkill -x "$APP_NAME" 2>/dev/null || true
 [ -w /Applications ] && SUDO= || SUDO=sudo
 $SUDO rm -rf "$APP_PATH"
 $SUDO ditto "$TMP/$APP_NAME.app" "$APP_PATH"
-xattr -dr com.apple.quarantine "$APP_PATH" 2>/dev/null || true
 
 open "$APP_PATH"
 echo "✓ $APP_NAME installed"

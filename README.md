@@ -6,6 +6,8 @@ A macOS app to preview sample text across all your installed fonts.
 
 <img src="web/shot.png" alt="Sans screenshot">
 
+Requires macOS 15 (Sequoia) or later.
+
 ## Install
 
 1. Open **Terminal** (press ⌘Space, type "Terminal", press Enter)
